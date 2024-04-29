@@ -1,10 +1,8 @@
-from asyncio import sleep
 import tkinter as tk
 from search_recipiente import *
 
 quantidade_primeiro_recipiente = 5
 quantidade_segundo_recipiente = 3
-
 
 class ProblemaDoRecipiente:
     def __init__(self, root: tk.Tk, problema: Problem):
