@@ -13,11 +13,6 @@ from statistics import mean
 
 import numpy as np
 
-
-# ______________________________________________________________________________
-# Functions on Sequences and Iterables
-
-
 def sequence(iterable):
     """Converts iterable to sequence, if it is not already one."""
     return iterable if isinstance(iterable, collections.abc.Sequence) else tuple([iterable])

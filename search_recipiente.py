@@ -81,7 +81,6 @@ def breadth_first_graph_search(problem):
 
 
 def depth_first_graph_search(problem):
- 
     cont = 0
     frontier = [(Node(problem.initial))]  # Stack
     explored = set()
@@ -96,7 +95,6 @@ def depth_first_graph_search(problem):
     return None, cont
 
 def depth_limited_search(problem, limit=50):
-    """[Figure 3.17]"""
 
     def recursive_dls(node, problem, limit):
         if problem.goal_test(node.state):
@@ -113,12 +111,10 @@ def depth_limited_search(problem, limit=50):
                     return result
             return 'cutoff' if cutoff_occurred else None
 
-    # Body of depth_limited_search:
     return recursive_dls(Node(problem.initial), problem, limit)
 
 
 def iterative_deepening_search(problem):
-    """[Figure 3.18]"""
     for depth in range(sys.maxsize):
         result = depth_limited_search(problem, depth)
         if result != 'cutoff':
