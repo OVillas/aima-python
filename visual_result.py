@@ -6,7 +6,7 @@ quantidade_primeiro_recipiente = 5
 quantidade_segundo_recipiente = 3
 
 
-class WaterJugProblemGUI:
+class ProblemaDoRecipiente:
     def __init__(self, root: tk.Tk, problema: Problem):
         self.root = root
         self.root.title("Problema do copinho")
@@ -26,8 +26,9 @@ class WaterJugProblemGUI:
         
 
         
-        self.desenhar_mesa(40, 190, 220, 30, self.estado_recipiente_dois)
+        self.desenhar_mesa(40, 190, 190, 30, self.estado_recipiente_dois)
         self.desenhar_mesa(50, 218, 30, 100, self.estado_recipiente_dois)
+        self.desenhar_mesa(190, 218, 30, 100, self.estado_recipiente_dois)
         self.desenhar_recipiente(50, 80, 40, 110, self.estado_recipiente_um)
         self.desenhar_recipiente(120, 100, 40, 90, self.estado_recipiente_dois)
         
@@ -132,5 +133,5 @@ estado_final = [(4,3), (4,0)]
 problem = Problem(estado_inicial, estado_final, grafo)
 
 root = tk.Tk()
-app = WaterJugProblemGUI(root, problem)
+app = ProblemaDoRecipiente(root, problem)
 root.mainloop()
