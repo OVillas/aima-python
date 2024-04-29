@@ -28,13 +28,27 @@ problema = Problem(estado_inicial, estado_final, grafo)
 print("Estado inicial:", estado_inicial)
 print("Estado final:", estado_final)
 
+resultado_busca_em_largura, cont = breadth_first_graph_search(problema)
 
-resultado_busca_em_profundidade, quantidade_de_caminhos = depth_first_graph_search(problema)
+solucao_busca_em_largura = resultado_busca_em_largura.solution()
 
-solucao_busca_em_profundidade = resultado_busca_em_profundidade.solution()
+solucao_busca_em_largura.insert(0, estado_inicial)
 
-solucao_busca_em_profundidade.insert(0, estado_inicial)
+print("Solução em largura:", solucao_busca_em_largura)
+print("Quantidade de caminhos em largura:", cont)
 
-print("Solução em profundidade:", solucao_busca_em_profundidade)
-print("Quantidade de caminhos em profundidade:", quantidade_de_caminhos)
+resultado_busca_em_profundidade_limitada = depth_limited_search(problema, 10)
 
+solucao_busca_em_profundidade_limitada = resultado_busca_em_profundidade_limitada.solution()
+
+solucao_busca_em_profundidade_limitada.insert(0, estado_inicial)
+
+print("Solução em profundidade limitada:", solucao_busca_em_profundidade_limitada)
+
+resultado_busca_em_profundidade_iterativa = iterative_deepening_search(problema)
+
+solucao_busca_em_profundidade_iterativa = resultado_busca_em_profundidade_iterativa.solution()
+
+solucao_busca_em_profundidade_iterativa.insert(0, estado_inicial)
+
+print("Solução em profundidade iterativa:", solucao_busca_em_profundidade_iterativa)

@@ -10,6 +10,7 @@ class WaterJugProblemGUI:
     def __init__(self, root: tk.Tk, problema: Problem):
         self.root = root
         self.root.title("Problema do copinho")
+        
         self.primeiro_recipiente = 0
         self.segundo_recipiente = 0
         self.solucao = []
@@ -20,12 +21,15 @@ class WaterJugProblemGUI:
         self.estado_recipiente_dois = 0  
         
         
-        self.canvas = tk.Canvas(root, width=200, height=300)
+        self.canvas = tk.Canvas(root, width=250, height=250, bg="lightyellow")
         self.canvas.grid(row=0, column=0, columnspan=2)
         
+
         
-        self.desenhar_recipiente(50, 50, 40, 200, self.estado_recipiente_um)
-        self.desenhar_recipiente(120, 50, 40, 200, self.estado_recipiente_dois)
+        self.desenhar_mesa(40, 190, 220, 30, self.estado_recipiente_dois)
+        self.desenhar_mesa(50, 218, 30, 100, self.estado_recipiente_dois)
+        self.desenhar_recipiente(50, 80, 40, 110, self.estado_recipiente_um)
+        self.desenhar_recipiente(120, 100, 40, 90, self.estado_recipiente_dois)
         
         self.solve_bfs_button = tk.Button(root, text="Busca em largura", command=self.busca_em_largura)
         self.solve_bfs_button.grid(row=4, column=0)
@@ -50,31 +54,24 @@ class WaterJugProblemGUI:
             self.inserir_agua_no_segundo_recipiente()
         
     def desenhar_recipiente(self, x, y, width, height, water_level):
-        self.canvas.create_rectangle(x, y, x + width, y + height, fill="gray", outline="black")
+        self.canvas.create_rectangle(x, y, x + width, y + height, fill="white", outline="black")
+        for i in range(water_level):
+            self.canvas.create_rectangle(x + 5, y + height - (i + 1) * 20 - i * 2, x + width - 5, y + height - i * 20 - i * 2, fill="lightblue", outline="")
+    
+    def desenhar_mesa(self, x, y, width, height, water_level):
+        self.canvas.create_rectangle(x, y, x + width, y + height, fill="brown", outline="black")
         for i in range(water_level):
             self.canvas.create_rectangle(x + 5, y + height - (i + 1) * 20 - i * 2, x + width - 5, y + height - i * 20 - i * 2, fill="blue", outline="")
     
     def inserir_agua_no_primeiro_recipiente(self):
         self.estado_recipiente_um = self.primeiro_recipiente
         self.canvas.delete("jug_4")
-        self.desenhar_recipiente(50, 50, 40, 200, self.estado_recipiente_um)
+        self.desenhar_recipiente(50, 80, 40, 110, self.estado_recipiente_um)
     
     def inserir_agua_no_segundo_recipiente(self):
         self.estado_recipiente_dois = self.segundo_recipiente
         self.canvas.delete("jug_3")
-        self.desenhar_recipiente(120, 50, 40, 200, self.estado_recipiente_dois)
-    
-    def esvaziar_primeiro_recipiente(self):
-        self.primeiro_recipiente = 0
-        self.estado_recipiente_um = 0
-        self.canvas.delete("jug_4")
-        self.desenhar_recipiente(50, 50, 40, 200, self.estado_recipiente_um)
-    
-    def esvaziar_segundo_recipiente(self):
-        self.segundo_recipiente = 0
-        self.estado_recipiente_dois = 0
-        self.canvas.delete("jug_3")
-        self.desenhar_recipiente(150, 50, 40, 150, self.estado_recipiente_dois)
+        self.desenhar_recipiente(120, 100, 40, 90, self.estado_recipiente_dois)
     
     def busca_em_largura(self):
         resultado, _ = breadth_first_graph_search(problem)
@@ -90,6 +87,12 @@ class WaterJugProblemGUI:
     
     def busca_em_profundidade_limitada(self):
         resultado = depth_limited_search(self.problema, 10)
+        self.solucao = resultado.solution()
+        print(self.solucao)
+        self.executar_solucao()
+    
+    def busca_em_profundidade_literativa(self):
+        resultado = iterative_deepening_search(self.problema)
         self.solucao = resultado.solution()
         print(self.solucao)
         self.executar_solucao()
@@ -124,7 +127,7 @@ grafo = {
 }
 
 estado_inicial = (0,0)
-estado_final = [(4,0), (4,3)]
+estado_final = [(4,3), (4,0)]
 
 problem = Problem(estado_inicial, estado_final, grafo)
 
